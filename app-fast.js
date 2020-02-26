@@ -1,23 +1,19 @@
 const sharp = require('sharp');
 const fs = require('fs').promises;
-const { generateTiles } = require('./generateTiles');
+const { generateImages } = require('./generateImages');
 
 
-exports.lambdaHandler = async (event) => {
-    const { body } = event;
-    const { 
-        tileSize, // Size of a tile
-        zoomLevel, // Total zoom levels allowed (saved in the file)
-    } = body;
+exports.lambdaHandler = async (input) => {
+    const { imagesQuantity, imagePath } = input;
 
     console.log('');
     console.log('');
-    console.log('START running FAST function (~9 seconds)');
+    console.log('START running FAST function');
 
-    const sharpImage = sharp('./big.png')
+    const sharpImage = sharp(imagePath)
         .toColorspace('srgb');
 
-    await generateTiles(sharpImage, tileSize, zoomLevel);
+    await generateImages(sharpImage, imagesQuantity);
 
     console.log('>>>> FINISHED running FAST function');
 };
