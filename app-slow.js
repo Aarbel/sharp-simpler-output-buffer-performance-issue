@@ -22,11 +22,17 @@ exports.lambdaHandler = async (input) => {
         })
 
     /* Here the input of sharp is a Buffer, not a string path */
-    const sharpImage = sharp(fileBuffer, { sequentialRead: true })
-        .toColorspace('srgb');
+    // const sharpImage = sharp(fileBuffer, { sequentialRead: true })
+    //     .toColorspace('srgb');
+
+    const { data, info } = await sharp(fileBuffer)
+        .raw()
+        .toBuffer({ resolveWithObject: true });
+
+    const sharpRaw = await sharp(data, { raw: info })
 
 
-    await generateImages(sharpImage, imagesQuantity);
+    await generateImages(sharpRaw, imagesQuantity);
 
 
     console.log('>>>> FINISHED running SLOOWWW function');

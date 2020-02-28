@@ -56,13 +56,13 @@ describe('Tests index', function () {
         });
         it('tests fast app with many files', async () => {
             await fastApp.lambdaHandler({
-                "imagesQuantity": 100,
+                "imagesQuantity": 1000,
                 "imagePath": 'big.png',
             })
         });
         it('tests slow app with many files', async () => {
             await slowApp.lambdaHandler({
-                "imagesQuantity": 100,
+                "imagesQuantity": 1000,
                 "imagePath": 'big.png',
             })
         });

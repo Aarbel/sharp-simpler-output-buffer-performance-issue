@@ -13,7 +13,7 @@ const generateImages = async (sharpImage, imagesQuantity) => {
     for(let i = 0; i < imagesQuantity; i++) {
         const newSharpImageInstance =  sharpImage.clone();
 
-        const cropedImage = newSharpImageInstance.extract({
+        const cropedImage = sharpImage.extract({
             left: 0,
             top: 0,
             width: 512,
@@ -25,7 +25,7 @@ const generateImages = async (sharpImage, imagesQuantity) => {
     console.log('GENERATED SHARP IMAGES');
 
 
-    const convertedImagesStreamsToBuffers = await Promise.mapSeries(imagesArray,
+    const convertedImagesStreamsToBuffers = await Promise.map(imagesArray,
         async (imageStream, index) => {
             const imageBuffer = await imageStream
                     .png()

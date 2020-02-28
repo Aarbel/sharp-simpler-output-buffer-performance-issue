@@ -11,6 +11,7 @@ exports.lambdaHandler = async (input) => {
     console.log('START running FAST function');
 
     const sharpImage = sharp(imagePath)
+        .raw()
         .toColorspace('srgb');
 
     await generateImages(sharpImage, imagesQuantity);
